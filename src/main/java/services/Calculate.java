@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static services.SleeveCounting.tooCount;
+import static services.SleeveCounting.countSleeves;
 
 
 public class Calculate {
@@ -37,7 +37,7 @@ public class Calculate {
                         .append("\n");
                 count++;
             }
-            Sleeve sleeves = tooCount(list);
+            Sleeve sleeves = countSleeves(list);
 
             stringBuilder.append("Аркуш: ").append(i + 1).append("\n");
             System.out.println("Аркуш: " + (i + 1));

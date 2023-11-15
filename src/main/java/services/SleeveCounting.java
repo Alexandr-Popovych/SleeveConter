@@ -9,40 +9,26 @@ public class SleeveCounting {
     private SleeveCounting() {
     }
 
-    public static Sleeve tooCount(List<Fitting> list) {
+    public static Sleeve countSleeves(List<Fitting> fittings) {
         Sleeve sleeve = new Sleeve();
-        String delimiter = "-";
-        for (Fitting fitting : list) {
-            String[] substring;
-            substring = fitting.getDesignation().split(delimiter);
+        final String delimiter = "-";
 
-            for (String s : substring) {
-                if ("16".equals(s)
-                        || (" " + 16 + " ").equals(s)
-                        || (" " + 16 + "").equals(s)
-                        || ("" + 16 + " ").equals(s)) {
-                    sleeve.setDiameter16(sleeve.getDiameter16() + fitting.getQuantity());
-
-                } else if ("20".equals(s)
-                        || (" " + 20 + " ").equals(s)
-                        || (" " + 20 + "").equals(s)
-                        || ("" + 20 + " ").equals(s)) {
-                    sleeve.setDiameter20(sleeve.getDiameter20() + fitting.getQuantity());
-
-                } else if ("25".equals(s)
-                        || (" " + 25 + " ").equals(s)
-                        || (" " + 25 + "").equals(s)
-                        || ("" + 25 + " ").equals(s)) {
-                    sleeve.setDiameter25(sleeve.getDiameter25() + fitting.getQuantity());
-
-                } else if ("32".equals(s)
-                        || (" " + 32 + " ").equals(s)
-                        || (" " + 32 + "").equals(s)
-                        || ("" + 32 + " ").equals(s)) {
-                    sleeve.setDiameter32(sleeve.getDiameter32() + fitting.getQuantity());
-                }
+        for (Fitting fitting : fittings) {
+            String[] substrings = fitting.getDesignation().split(delimiter);
+            for (String substring : substrings) {
+                updateSleeveCount(sleeve, substring.trim(), fitting.getQuantity());
             }
         }
+
         return sleeve;
+    }
+
+    private static void updateSleeveCount(Sleeve sleeve, String designation, double quantity) {
+        switch (designation) {
+            case "16" -> sleeve.setDiameter16(sleeve.getDiameter16() + quantity);
+            case "20" -> sleeve.setDiameter20(sleeve.getDiameter20() + quantity);
+            case "25" -> sleeve.setDiameter25(sleeve.getDiameter25() + quantity);
+            case "32" -> sleeve.setDiameter32(sleeve.getDiameter32() + quantity);
+        }
     }
 }
